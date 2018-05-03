@@ -1,3 +1,7 @@
+// import Sprite from "/base/sprite";
+import BackGround from "/common/background"
+var drawBg = require('/base/drawSprite')
+
 let ctx = canvas.getContext('2d');
 
 export default class Main{
@@ -7,7 +11,7 @@ export default class Main{
     ctx.fillRect(0, 0, 100, 100);
 
     console.log(canvas.width + '--' + canvas.height);
-
+    /*
     // canvas.width = 200;
     // canvas.height = 200;
 
@@ -47,7 +51,47 @@ export default class Main{
     //全局对象管理
     // GameGlobal等同于浏览器的window
     console.log(GameGlobal.setTimeout === setTimeout)
+    */
 
+    // this.bg = new BackGround(ctx);
+    // drawBg(ctx, 0, 0)
 
+    // 获取微信用户权限
+    /*
+    wx.login({
+      success: function(res){
+        wx.getUserInfo({
+          success: function(res){
+            console.log(res);
+          },
+          fail: function() {
+            // fail
+          },
+          complete: function() {
+            // complete
+          }
+        })
+      },
+      fail: function() {
+        console.log('fail');
+        
+      },
+      complete: function() {
+        console.log('complete');
+        
+      }
+    })*/
+
+    wx.authorize({
+      scope: 'scope.record',
+      fail: function(res) {
+        console.log(res);
+        
+        if (res.errMsg.indexOf('auth deny') > -1 || res.errMsg.indexOf('auth denied') > -1) {
+          console.log('拒绝');
+          
+        }
+      },
+    })
   }
 }
